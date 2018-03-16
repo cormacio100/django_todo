@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -7,6 +8,10 @@ from django.contrib.auth.decorators import login_required
 
 import logging
 logger = logging.getLogger(__name__)
+
+#   Home view redirects to the login page
+def home(request):
+    return redirect(reverse('accounts:login'))
 
 #   Registration View
 def register(request):
@@ -34,3 +39,7 @@ def register(request):
         #   Display an empty form
         return render(request,'accounts/register.html')
 
+
+#   Login view
+def login(request):
+    return render(request, 'accounts/login.html')
