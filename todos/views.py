@@ -60,5 +60,10 @@ def edit_todo(request,pk):
 
 @login_required()
 def delete_todo(request,pk):
+    #   ensure that the request came from the dislike form in the template
+    if request.method == 'POST':
+        todo = Todo.objects.get(id=pk)
+        todo.delete()
+
     return redirect(reverse('todos:list_todos'))
 
