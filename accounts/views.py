@@ -18,28 +18,36 @@ def register(request):
     if request.method =='POST':
         #   check that the passwords match
         if request.POST['password1'] == request.POST['password2']:
+            logger.debug('the passwords matched')
             try:
                 #   Check if user already exists
                 user = User.objects.get(username=request.POST['username'])
                 return render(request,'accounts/register.html',{'error':'Username already in use'})
             except User.DoesNotExist:
                 logger.debug('logging in user: '+request.POST['username'])
-
                 #   Create User Account
-                user = User.objects.create_user(username=request.POST['username'],email=request.POST['email'],password=request.POST['password'])
+                user = User.objects.create_user(username=request.POST['username'],email=request.POST['email'],password=request.POST['password1'])
                 #   Log the New User in
                 login(request,user)
-
-                logger.debug('the login worked')
-                return render(request,'accounts/register.html')
+                args = {'message':'User Registered and logged in'}
+                return render(request,'accounts/register.html',args)
         else:
-            args = {'error': 'Passwords did not match'}
+            args = {'message': 'Passwords did not match'}
             return render(request,'accounts/register.html',args)
+
     else:
+        args = {'message': 'Please Register. Method is not POST'}
         #   Display an empty form
-        return render(request,'accounts/register.html')
+        return render(request,'accounts/register.html',args)
 
 
 #   Login view
-def login(request):
-    return render(request, 'accounts/login.html')
+def login_user(request):
+
+    """
+    NEED TO DO CHECK HERE LIKE IN REGISTER AND FORWARD USER TO THE TODO PAGE IF WORKS
+    :param request:
+    :return:
+    """
+    args = {'message': ''}
+    return render(request, 'accounts/login.html',args)
