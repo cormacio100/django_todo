@@ -62,8 +62,8 @@ def login_user(request):
             '''
                 USER SHOULD GET FORWARDED TO THE TODO PAGE
             '''
-            args = {'msg': 'User Logged In'}
-            return redirect('accounts:message',args)
+
+            return redirect('todos:list_todos')
         else:
             args = {'msg': 'User NOT found'}
             return redirect('accounts:message', args)
