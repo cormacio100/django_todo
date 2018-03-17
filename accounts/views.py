@@ -51,3 +51,11 @@ def login_user(request):
     """
     args = {'message': ''}
     return render(request, 'accounts/login.html',args)
+
+
+def logout_user(request):
+    if request.method == 'POST':
+        logout(request)
+    else:
+        logger.debug('User is logged out')
+    return redirect('home')
