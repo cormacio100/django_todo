@@ -5,12 +5,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import TodoForm
+from .models import Todo
 
 
 @login_required()
 def list_todos(request):
 
-    #   Retrieve the list of Todos for the current user
+    #   Try to retrieve the list of Todos for the current user
+    try:
+        todo_list = Todo.objects.filter(user_id=request.user.id)
+    except:
+        todo_list = {}
 
     '''
         if NOT POST:
@@ -20,7 +25,7 @@ def list_todos(request):
     if request.method != 'POST':
         form =  TodoForm(request.user)
 
-    return render(request,'todos/list_todos.html',{'form':form})
+    return render(request,'todos/list_todos.html',{'form':form,'todo_list':todo_list})
 
 
 @login_required()

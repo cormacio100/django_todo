@@ -28,19 +28,21 @@
 		                </tr>
 	                </thead>
 	                <tbody>
-		                <tr ng-repeat="todo in todos track by $index">
-			                <td>{{todo.title}}</td>
-			                <td>{{todo.description}}</td>
-			                <td>{{todo.status}}</td>
-                            <td>
-                                <button ng-click="editTodo(todo.id)">
-                                    <i class="far fa-edit"></i>
-                                </button>
-                                <button ng-click="deleteTodo(todo.id)">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
-		                </tr>
+                        {% for todo in todo_list %}
+		                    <tr>
+			                    <td>{{todo.title}}</td>
+			                    <td>{{todo.description}}</td>
+			                    <td>{{todo.status}}</td>
+                                <td>
+                                    <button ng-click="editTodo(todo.id)">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button ng-click="deleteTodo(todo.id)">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
+		                    </tr>
+                        {% endfor %}
 	                </tbody>
                 </table>
             </div>
