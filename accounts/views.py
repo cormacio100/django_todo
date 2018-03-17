@@ -58,17 +58,18 @@ def login_user(request):
         user = authenticate(username=request.POST['username'],password=request.POST['password'])
         if user is not None:
             login(request,user)
-            '''
-                USER SHOULD GET FORWARDED TO THE TODO PAGE
-            '''
 
+            #   When logged in:
+            #   User gets forward to the TODO List page
             return redirect('todos:list_todos')
         else:
-            args = {'msg': 'User NOT found'}
-            return redirect('accounts:message', args)
-
-    args = {'message': ''}
-    return render(request, 'accounts/login.html',args)
+            #   Otherwise:
+            #   Return the user to the lofin screen
+            return redirect('accounts:login')
+    else:
+        #   If page just loaded
+        #   Display the login screen
+        return render(request, 'accounts/login.html')
 
 
 def logout_user(request):

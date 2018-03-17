@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap_tags %}
 {% block content %}
     {% if message %}
         {{ message }}
@@ -19,13 +20,13 @@
             <div class="col-sm-12">
                 <table class="table">
 	                <thead>
-		<tr>
-			<td><strong>Title</strong></td>
-			<td><strong>Description</strong></td>
-			<td><strong>Status</strong></td>
-            <td><strong>Actions</strong></td>
-		</tr>
-	</thead>
+		                <tr>
+			                <td><strong>Title</strong></td>
+			                <td><strong>Description</strong></td>
+			                <td><strong>Status</strong></td>
+                            <td><strong>Actions</strong></td>
+		                </tr>
+	                </thead>
 	                <tbody>
 		                <tr ng-repeat="todo in todos track by $index">
 			                <td>{{todo.title}}</td>
@@ -60,8 +61,11 @@
                 </div>
                 <div class="modal-body">
                    <form name="todoForm" id="todoForm" role="form" method="post" action="{% url 'todos:create_todo' %}" class="account-form" enctype="multipart/form-data">
-                        {% csrf_token %}
-                       <div class="form-group">
+                       {% csrf_token %}
+                        {% if form %}
+                            {{ form | as_bootstrap }}
+                        {% endif %}
+                       <!--<div class="form-group">
                             <label>Title</label>
                             <input type="text" id="title" name="title" class="form-control" required>
                         </div>
@@ -76,7 +80,7 @@
                                 <option value="Doing">Doing</option>
                                 <option value="Done">Done</option>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Create</button>

@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'todos'
+    'todos',
+    'django_forms_bootstrap',
 )
 
 MIDDLEWARE_CLASSES = (
