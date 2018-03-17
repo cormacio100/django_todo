@@ -43,12 +43,31 @@ def register(request):
 
 #   Login view
 def login_user(request):
+    """
+    1   Check if the form is POSTed
+    2   If yes
+        -   Authenticate the user
+            -   If authentic
+                -   Log the user in
+                -   Forward user to the todo page
+            -   If not authentic
+                -   Show error that User not found
+    3   If No
+        -   Display empty login form
+    """
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['username'],password=request.POST['password'])
+        if user is not None:
+            login(request,user)
+            '''
+                USER SHOULD GET FORWARDED TO THE TODO PAGE
+            '''
+            args = {'msg': 'User Logged In'}
+            return redirect('accounts:message',args)
+        else:
+            args = {'msg': 'User NOT found'}
+            return redirect('accounts:message', args)
 
-    """
-    NEED TO DO CHECK HERE LIKE IN REGISTER AND FORWARD USER TO THE TODO PAGE IF WORKS
-    :param request:
-    :return:
-    """
     args = {'message': ''}
     return render(request, 'accounts/login.html',args)
 
@@ -59,3 +78,8 @@ def logout_user(request):
     else:
         logger.debug('User is logged out')
     return redirect('home')
+
+
+def message(request,msg):
+    args = {'message':msg}
+    return render(request, 'accounts/message.html', args)
