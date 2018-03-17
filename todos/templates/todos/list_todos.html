@@ -37,14 +37,17 @@
                                     <a href="#" onClick="document.getElementById('edit{{ todo.id }}').submit();">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    <button ng-click="deleteTodo(todo.id)">
+                                    <a href="#" onClick="document.getElementById('delete{{ todo.id }}').submit();">
                                         <i class="far fa-trash-alt"></i>
-                                    </button>
+                                    </a>
                                     <form id="edit{{ todo.id }}" method="POST" action="{% url 'todos:edit_todo' todo.id %}">
                                         {% csrf_token %}
                                         <input type="hidden">
                                     </form>
-                                    
+                                    <form id="delete{{ todo.id }}" method="POST" action="{% url 'todos:delete_todo' todo.id %}">
+                                        {% csrf_token %}
+                                        <input type="hidden">
+                                    </form>
                                 </td>
 		                    </tr>
                         {% endfor %}

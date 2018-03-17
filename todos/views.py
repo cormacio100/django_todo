@@ -56,3 +56,9 @@ def create_todo(request):
 @login_required()
 def edit_todo(request,pk):
     return redirect(reverse('todos:list_todos'))
+
+
+@login_required()
+def delete_todo(request,pk):
+    return redirect(reverse('todos:list_todos'))
+
