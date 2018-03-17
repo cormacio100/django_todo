@@ -34,12 +34,17 @@
 			                    <td>{{todo.description}}</td>
 			                    <td>{{todo.status}}</td>
                                 <td>
-                                    <button ng-click="editTodo(todo.id)">
+                                    <a href="#" onClick="document.getElementById('edit{{ todo.id }}').submit();">
                                         <i class="far fa-edit"></i>
-                                    </button>
+                                    </a>
                                     <button ng-click="deleteTodo(todo.id)">
                                         <i class="far fa-trash-alt"></i>
                                     </button>
+                                    <form id="edit{{ todo.id }}" method="POST" action="{% url 'todos:edit_todo' todo.id %}">
+                                        {% csrf_token %}
+                                        <input type="hidden">
+                                    </form>
+                                    
                                 </td>
 		                    </tr>
                         {% endfor %}

@@ -51,3 +51,8 @@ def create_todo(request):
 
     #   refresh the list of todos
     return redirect(reverse('todos:list_todos'))
+
+
+@login_required()
+def edit_todo(request,pk):
+    return redirect(reverse('todos:list_todos'))
