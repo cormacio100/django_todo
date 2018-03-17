@@ -5,5 +5,6 @@ from . import views
 app_name = 'todos'
 
 urlpatterns = [
-    url(r'^list_todos/',views.list_todos,name='list_todos')
+    url(r'^list_todos/',views.list_todos,name='list_todos'),
+    url(r'^create_todo/',views.create_todo,name='create_todo')
 ]

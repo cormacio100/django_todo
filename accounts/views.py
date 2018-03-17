@@ -29,8 +29,7 @@ def register(request):
                 user = User.objects.create_user(username=request.POST['username'],email=request.POST['email'],password=request.POST['password1'])
                 #   Log the New User in
                 login(request,user)
-                args = {'message':'User Registered and logged in'}
-                return render(request,'accounts/register.html',args)
+                return redirect('todos:list_todos')
         else:
             args = {'message': 'Passwords did not match'}
             return render(request,'accounts/register.html',args)
