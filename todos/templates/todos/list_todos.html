@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load bootstrap_tags %}
 {% block content %}
     {% if message %}
@@ -10,7 +11,7 @@
                 &nbsp;
             </div>
             <div class="col-sm-6">
-                <h1>Todo Listing page</h1>
+                <h1>Todo's for {{ username }}</h1>
             </div>
             <div class="col-sm-3">
                 &nbsp;
@@ -34,10 +35,10 @@
 			                    <td>{{todo.description}}</td>
 			                    <td>{{todo.status}}</td>
                                 <td>
-                                    <a href="#" onClick="document.getElementById('edit{{ todo.id }}').submit();">
+                                    <a id="todo-{{todo.id}}" class="edit-link" data-toggle="modal" data-target="#todo-modal" onClick="document.getElementById('');">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    <a href="#" onClick="document.getElementById('delete{{ todo.id }}').submit();">
+                                    <a onClick="document.getElementById('delete{{ todo.id }}').submit();">
                                         <i class="far fa-trash-alt"></i>
                                     </a>
                                     <form id="edit{{ todo.id }}" method="POST" action="{% url 'todos:edit_todo' todo.id %}">
@@ -101,4 +102,7 @@
         </div>
     </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script src="{% static "js/edit_todo.js" %}"></script>
 {% endblock %}
