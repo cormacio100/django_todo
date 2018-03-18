@@ -3,6 +3,13 @@ $(document).ready(function(){
 
     //  initially load ALL todo items.
     //  Display the 1st page of 8 records
+    //  for specified user_id
     //  talk_to_api.js
-    requestForJsonData('ALL','initLoad',1);
+    requestForJsonData('initial','All',$('#user_id').html(),1);
+
+    //  If the user Sorts by Status
+    $('#choose_status').on('change',function(){
+        requestForJsonData('initialLoad',$('#choose_status').val(),$('#user_id').html(),1);
+    })
+
 });

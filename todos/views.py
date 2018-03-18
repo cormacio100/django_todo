@@ -35,7 +35,7 @@ def list_todos(request):
     if request.method != 'POST':
         form =  TodoForm(request.user)
 
-    return render(request,'todos/list_todos.html',{'form':form,'todo_list':todo_list,'username':request.user.username})
+    return render(request,'todos/list_todos.html',{'form':form,'todo_list':todo_list,'username':request.user.username,'user_id':request.user.id})
 
 
 #@login_required()
@@ -95,28 +95,49 @@ class TodosView(APIView):
     def get(self,request,pk=None):
         """
         Handles GET requests
-        -   If no primary key is contained in the URL
+        -   IF no primary key is contained in the URL
+            -   Check for status, user_id and page and filter for them
+            OR
             -   Retrieve a complete list of 'todo' items from the Todo model,
             -   serialize them using the TodoSerializer to JSON and return the serialized todo items
-        -   Else if a primary key was supplied
+        -   ELSE if a primary key was supplied
             -   Only retrieve the instance for the relevant record based on the primary key
         """
-        user_id = 'all'
-        page = 'all'
-        status = 'all'
+        user_id = 0
+        status = 'All'
+        page = 'All'
         recordsPerPage = 8
 
         if pk is None:
-            #   check the user
+            #   check the status from the request
+            if self.request.GET['status'] is not None:
+                if self.request.GET['status'] != 'All':
+                    status = self.request.GET['status']
+
+            #   check the user from the request
             if self.request.GET['user_id'] is not None:
-                if self.request.GET['user_id'] != 'all':
+                if self.request.GET['user_id'] != 0:
                     user_id = self.request.GET['user_id']
 
-            if user_id != 'all':
-                logger.debug('FILTERING BY USER_ID')
+            #   check the user from the request
+            if self.request.GET['page'] is not None:
+                if self.request.GET['page'] != 'All':
+                    page = self.request.GET['page']
+
+            logger.debug('status is '+status)
+            logger.debug('user_id '+user_id)
+            logger.debug('page '+page)
+
+            #########   DO FILTERS FOR EACH     ############
+
+            if user_id != 0 and status == 'All':
                 todo_items = Todo.objects.filter(user_id=user_id)
+            elif user_id != 0 and status != 'All':
+                todo_items = Todo.objects.filter(user_id=user_id,status=status)
             else:
                 todo_items = Todo.objects.all()
+
+
             serializer = TodoSerializer(todo_items,many=True)
             #   use a variable to store the serialized data
             serialized_data = serializer.data

@@ -8,14 +8,25 @@
     <div class="container contents">
         <div class="row">
             <div class="col-sm-3">
-                &nbsp;
+                <button type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item<span id="user_id" hidden>{{ user_id }}</span></button>
             </div>
             <div class="col-sm-6 centered">
-                <h1>Todo's for {{ username }}</h1>
+                <h1>Todo's for {{ username|title}}</h1>
             </div>
             <div class="col-sm-3">
-                <button type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item</button>
+                <p>
+                    Sort by Status:
+                    <select id="choose_status">
+                        <option value="All">All</option>
+                        <option value="Todo">Todo</option>
+                        <option value="Doing">Doing</option>
+                        <option value="Done">Done</option>
+                    </select>
+                </p>
             </div>
+        </div>
+        <div class="row">
+
         </div>
         <div class="row">
             <div class="col-sm-12">

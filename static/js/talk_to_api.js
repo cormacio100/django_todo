@@ -1,7 +1,7 @@
 /*
     FUNCTION USED TO REQUEST DATA IN JSON FORMAT FROM THE REST API
 */
-var requestForJsonData = function(status,callingFunction,page){
+var requestForJsonData = function(callingFunction,status,user_id,page){
     var host = window.location.hostname;
 
     //  Check if running on localhost
@@ -14,9 +14,12 @@ var requestForJsonData = function(status,callingFunction,page){
     console.log('url is '+url);
     var getData = {
         status:status,
-        page:page,
-        user_id:1
+        user_id:user_id,
+        page:page
     };
+    console.log('status is '+status);
+    console.log('user_id is '+user_id);
+    console.log('page is '+page);
 
     $.getJSON(url,getData,function(){
         console.log('Requesting...')
