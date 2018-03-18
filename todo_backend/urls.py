@@ -12,6 +12,7 @@ Class-based views
 Including another URLconf
     1. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from accounts import views as accounts_views
@@ -22,3 +23,10 @@ urlpatterns = [
     url(r'^todos/',include('todos.urls')),
     url(r'^$',accounts_views.home,name="home")
 ]
+
+#   DEBUG TOOLBAR SETTINGS
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

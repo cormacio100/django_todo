@@ -115,10 +115,14 @@ class TodosView(APIView):
                 if self.request.POST.get('user_id') != 'all':
                     user_id = self.request.POST.get('user_id')
 
-            #logger.debug('user_id is ');
-            #logger.debug(user_id)
+            logger.debug('user_id is ');
+            logger.debug(user_id)
 
-            todo_items = Todo.objects.all()
+            if user_id != 'all':
+                logger.debug('FILTERING BY USER_ID')
+                todo_items = Todo.objects.filter(user_id=user_id)
+            else:
+                todo_items = Todo.objects.all()
             serializer = TodoSerializer(todo_items,many=True)
             #   use a variable to store the serialized data
             serialized_data = serializer.data

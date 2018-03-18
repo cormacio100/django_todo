@@ -25,8 +25,9 @@ SECRET_KEY = '0(7)5q%lxe9ksf!@n=0nfyqev^$+8#vwrj^16sw87y4cfdgct('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 
@@ -40,7 +41,8 @@ INSTALLED_APPS = (
     'accounts',
     'todos',
     'django_forms_bootstrap',
-    'rest_framework'
+    'rest_framework',
+    'debug_toolbar'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'todo_backend.urls'
