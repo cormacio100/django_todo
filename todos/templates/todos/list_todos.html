@@ -15,7 +15,7 @@
             </div>
             <div class="col-sm-3">
                 <p>
-                    Sort by Status:
+                    Sort by Status:&nbsp;
                     <select id="choose_status">
                         <option value="All">All</option>
                         <option value="Todo">Todo</option>
@@ -42,10 +42,10 @@
 	                <tbody>
                         {% for todo in todo_list %}
 		                    <tr>
-			                    <td>{{todo.title}}</td>
-			                    <td>{{todo.description}}</td>
-			                    <td>{{todo.status}}</td>
-                                <td>
+			                    <td class="cell-title" >{{todo.title}}</td>
+			                    <td class="cell-description">{{todo.description}}</td>
+			                    <td class="cell-status">{{todo.status}}</td>
+                                <td class="cell-action">
                                     <a id="todo-{{todo.id}}" class="edit-link" data-toggle="modal" data-target="#todo-modal" onClick="document.getElementById('');">
                                         <i class="far fa-edit"></i>
                                     </a>

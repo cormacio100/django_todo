@@ -9,3 +9,21 @@ body{
 .centered{
     text-align:center;
 }
+
+select#choose_status {
+    background-color: #9d9d9d;
+    color: white;
+}
+
+.cell-title{
+    min-width:25%;
+}
+.cell-description{
+    min-width:50%;
+}
+.cell-status{
+    min-width:13%;
+}
+.cell-action{
+    min-width:12%;
+}

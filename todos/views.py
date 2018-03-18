@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from todos.serializer import TodoSerializer
 from todos.models import Todo
+from django.core.paginator import Paginator
 
 import logging
 logger = logging.getLogger(__name__)
@@ -109,6 +110,7 @@ class TodosView(APIView):
         recordsPerPage = 8
 
         if pk is None:
+            #   RETRIEVE THE PARAMETERS PASSED IN
             #   check the status from the request
             if self.request.GET['status'] is not None:
                 if self.request.GET['status'] != 'All':
@@ -128,7 +130,7 @@ class TodosView(APIView):
             logger.debug('user_id '+user_id)
             logger.debug('page '+page)
 
-            #########   DO FILTERS FOR EACH     ############
+            #########   DO FILTERS FOR EACH PARAM SCENARIO   ############
 
             if user_id != 0 and status == 'All':
                 todo_items = Todo.objects.filter(user_id=user_id)

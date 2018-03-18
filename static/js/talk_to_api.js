@@ -24,12 +24,13 @@ var requestForJsonData = function(callingFunction,status,user_id,page){
     $.getJSON(url,getData,function(){
         console.log('Requesting...')
     }).done(function(json){
-        apiResponse = json;
-        console.log('json is ');
-        console.log(json);
+        apiResponseArr = json;
         console.log('apiResponse is ');
-        console.log(apiResponse);
-        console.log('JSON length is '+apiResponse.length)
+        console.log(apiResponseArr);
+        console.log('JSON length is '+apiResponseArr.length)
+
+        //  pass the data to the template
+        populateTemplate();
 
     }).fail(function(jqxhr,textStatus,error){
         var err = textStatus+", "+error;
