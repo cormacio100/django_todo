@@ -12,13 +12,13 @@ var requestForJsonData = function(status,callingFunction,page){
         var url = 'https://'+host+'/todos/api/?';
     }
     console.log('url is '+url);
-    var postedData = {
+    var getData = {
         status:status,
         page:page,
         user_id:1
     };
 
-    $.getJSON(url,function(){
+    $.getJSON(url,getData,function(){
         console.log('Requesting...')
     }).done(function(json){
         apiResponse = json;
@@ -27,7 +27,7 @@ var requestForJsonData = function(status,callingFunction,page){
         console.log('apiResponse is ');
         console.log(apiResponse);
         console.log('JSON length is '+apiResponse.length)
-        
+
     }).fail(function(jqxhr,textStatus,error){
         var err = textStatus+", "+error;
         console.log("Request Failed:"+err);

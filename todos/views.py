@@ -107,16 +107,10 @@ class TodosView(APIView):
         recordsPerPage = 8
 
         if pk is None:
-            logger.debug('REQUEST GET CONTENTS')
-            logger.debug(request.GET)
-
             #   check the user
-            if self.request.POST.get('user_id') is not None:
-                if self.request.POST.get('user_id') != 'all':
-                    user_id = self.request.POST.get('user_id')
-
-            logger.debug('user_id is ');
-            logger.debug(user_id)
+            if self.request.GET['user_id'] is not None:
+                if self.request.GET['user_id'] != 'all':
+                    user_id = self.request.GET['user_id']
 
             if user_id != 'all':
                 logger.debug('FILTERING BY USER_ID')
