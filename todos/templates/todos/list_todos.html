@@ -10,11 +10,11 @@
             <div class="col-sm-3">
                 &nbsp;
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 centered">
                 <h1>Todo's for {{ username }}</h1>
             </div>
             <div class="col-sm-3">
-                &nbsp;
+                <button type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item</button>
             </div>
         </div>
         <div class="row">
@@ -57,52 +57,35 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-3">&nbsp;</div>
-            <div class="col-sm-6">
-                <button type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item</button>
-            </div>
-            <div class="col-sm-3">&nbsp;</div>
+            <div id="REST-data" class="col-sm-12" ></div>
         </div>
         <div class="modal fade" id="todo-modal" tabindex="-1" role="dialog" aria-labelledby="todo-form-modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="todo-form-header">Todo Item</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                   <form name="todoForm" id="todoForm" role="form" method="post" action="{% url 'todos:create_todo' %}" class="account-form" enctype="multipart/form-data">
-                       {% csrf_token %}
-                        {% if form %}
-                            {{ form | as_bootstrap }}
-                        {% endif %}
-                       <!--<div class="form-group">
-                            <label>Title</label>
-                            <input type="text" id="title" name="title" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <input type="text" id="description" name="description" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select class="form-control" name="status" >
-                                <option value="Todo" selected>Todo</option>
-                                <option value="Doing">Doing</option>
-                                <option value="Done">Done</option>
-                            </select>
-                        </div>-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        </div>
-                    </form>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="todo-form-header">Todo Item</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="todoForm" id="todoForm" role="form" method="post" action="{% url 'todos:create_todo' %}" class="account-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if form %}
+                                {{ form | as_bootstrap }}
+                            {% endif %}
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}
 {% block script %}
-    <script src="{% static "js/edit_todo.js" %}"></script>
+    <script src="{% static 'js/globals.js' %}"></script>
+    <script src="{% static 'js/edit_todo.js' %}"></script>
+    <script src="{% static 'js/talk_to_api.js' %}"></script>
+    <script src="{% static 'js/list_todos.js' %}"></script>
 {% endblock %}

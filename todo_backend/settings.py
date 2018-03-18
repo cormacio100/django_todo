@@ -127,6 +127,10 @@ LOGGING = {
         'accounts': {
             'handlers': ['console'],
             'level': os.getenv('DJANGO_LOG_LEVEL','DEBUG'),
+        },
+        'todos': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL','DEBUG'),
         }
     },
 }

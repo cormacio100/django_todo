@@ -14,7 +14,11 @@ from rest_framework import status
 from todos.serializer import TodoSerializer
 from todos.models import Todo
 
-@login_required()
+import logging
+logger = logging.getLogger(__name__)
+
+
+#@login_required()
 def list_todos(request):
 
     #   Try to retrieve the list of Todos for the current user
@@ -34,7 +38,7 @@ def list_todos(request):
     return render(request,'todos/list_todos.html',{'form':form,'todo_list':todo_list,'username':request.user.username})
 
 
-@login_required()
+#@login_required()
 def create_todo(request):
     """
     -   Need to create a FORM in forms.py
@@ -59,7 +63,7 @@ def create_todo(request):
     return redirect(reverse('todos:list_todos'))
 
 
-@login_required()
+#@login_required()
 def edit_todo(request,pk):
     '''
     -   Retrieve the Todo item if POST is the method to get to this function
@@ -74,7 +78,7 @@ def edit_todo(request,pk):
         return redirect(reverse('todos:list_todos'))
 
 
-@login_required()
+#@login_required()
 def delete_todo(request,pk):
     #   ensure that the request came from the dislike form in the template
     if request.method == 'POST':
@@ -97,7 +101,23 @@ class TodosView(APIView):
         -   Else if a primary key was supplied
             -   Only retrieve the instance for the relevant record based on the primary key
         """
+        user_id = 'all'
+        page = 'all'
+        status = 'all'
+        recordsPerPage = 8
+
         if pk is None:
+            logger.debug('REQUEST GET CONTENTS')
+            logger.debug(request.GET)
+
+            #   check the user
+            if self.request.POST.get('user_id') is not None:
+                if self.request.POST.get('user_id') != 'all':
+                    user_id = self.request.POST.get('user_id')
+
+            #logger.debug('user_id is ');
+            #logger.debug(user_id)
+
             todo_items = Todo.objects.all()
             serializer = TodoSerializer(todo_items,many=True)
             #   use a variable to store the serialized data
@@ -169,4 +189,3 @@ class TodosView(APIView):
         todo = Todo.objects.get(id=pk)
         todo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
