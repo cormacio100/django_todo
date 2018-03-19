@@ -20,7 +20,7 @@ table.table{
 .title{
     margin-bottom:2em;
 }
-select#choose_status {
+select.select-menu{
     background-color: #9d9d9d;
     color: white;
 }
