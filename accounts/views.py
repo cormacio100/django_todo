@@ -35,9 +35,8 @@ def register(request):
             return render(request,'accounts/register.html',args)
 
     else:
-        args = {'message': 'Please Register. Method is not POST'}
         #   Display an empty form
-        return render(request,'accounts/register.html',args)
+        return render(request,'accounts/register.html')
 
 
 #   Login view

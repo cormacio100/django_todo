@@ -109,10 +109,6 @@ var populateModal = function(){
     $('#submit-btn').html('Update');
 }
 
-var pagerClick = function(pageClicked){
-
-}
-
 /**
  *  Function GENERATES the Pager Links
  */
@@ -153,7 +149,7 @@ var populateTemplate = function(){
 
     //  Build a Table with Table Heading to append to the Div
     var table = $('<table class="table"></table>');
-    var tableHeading = $('<thead><tr><td><strong>Title</strong></td><td><strong>Description</strong></td><td><strong>Status</strong></td><td><strong>Actions</strong></td></tr></thead>')
+    var tableHeading = $('<thead><tr><td class="centered"><strong>Title</strong></td><td class="centered"><strong>Description</strong></td><td class="centered"><strong>Status</strong></td><td class="centered"><strong>Actions</strong></td></tr></thead>')
 
     table.append(tableHeading);
 
@@ -167,11 +163,10 @@ var populateTemplate = function(){
         var tableRow = $('<tr></tr>');
 
         var tableCellsArr = [];
-        tableCellsArr.push($('<td class="cell-title">'+apiResponseArr[i].title+'</td>'));
-        tableCellsArr.push($('<td class="cell-description">'+apiResponseArr[i].description+'</td>'));
-        tableCellsArr.push($('<td class="cell-status">'+apiResponseArr[i].status+'</td>'));
-        tableCellsArr.push($('<td class="cell-action" id="cell-action-'+apiResponseArr[i].id+'"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link"><i class="far fa-trash-alt"></i></a> <form id="delete-form-'+apiResponseArr[i].id+'" method="POST" action="/todos/delete_todo/'+apiResponseArr[i].id+'/" %}"><input type="hidden"></form></td>'));
-       // tableCellsArr.push($('<td class="cell-action" id="cell-action-'+apiResponseArr[i].id+'"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link"><i class="far fa-trash-alt"></i></a></td>'));
+        tableCellsArr.push($('<td class="cell-title centered">'+apiResponseArr[i].title+'</td>'));
+        tableCellsArr.push($('<td class="cell-description centered">'+apiResponseArr[i].description+'</td>'));
+        tableCellsArr.push($('<td class="cell-status centered">'+apiResponseArr[i].status+'</td>'));
+        tableCellsArr.push($('<td class="cell-action centered" id="cell-action-'+apiResponseArr[i].id+'"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a></td>'));
 
         //  append the table cells to the table Row
         for(j=0; j<tableCellsArr.length;j++){
