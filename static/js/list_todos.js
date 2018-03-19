@@ -62,15 +62,18 @@ var createClickEvents = function(){
 };
 
 /**
- *  Reset the Create modal
+ *  Reset the Create modal if it was changed by a user clicking edit button
  */
 var resetModal = function(){
-   $('#todoForm').attr('action','/todos/create_todo/')
-   $('#todo-form-header').html('Todo Item');
-   $('#id_title').val('');
-   $('#id_description').val('');
-   $('#id_status').val('Todo');
-   $('#submit-btn').html('Create');
+    $('#todoForm').attr('action','/todos/create_todo/')
+    $('#todo-form-header').html('Todo Item');
+    $('#id_title').val('');
+    $('#id_description').val('');
+    $('#id_status').val('Todo');
+    $('#submit-btn').html('Create');
+    if($("#id_status option[value='Done-Remove']").length > 0){
+        $("#id_status option[value='Done-Remove']").remove();
+    }
 }
 
 /**
@@ -78,28 +81,27 @@ var resetModal = function(){
  */
 var populateModal = function(){
     /***
-     *  Reset initial Modal values if the Create button is clicked
+     *  If the Create button is clicked at any time it will reset the following attributes
      *  -  Heading
      *  -  title contents
      *  -  description contents
      *  -  status
+     *  -   action
      */
      $('#create-todo-btn').on('click',function(){
         resetModal();
      });
 
-    //  Populate the modal with Todo Item
+    //  Populate the modal with Todo Item values
     $('#todo-form-header').html('Edit Todo Item');
     $('#id_title').val(apiResponseArr.title);
     $('#id_description').val(apiResponseArr.description);
     $('#id_status').val(apiResponseArr.status);
-    var options_length = $('#id_status').children('option').length;
-    console.log('options_length:'+options_length);
-    for(var i=0;i<length+1;i++){
-        $('#id_status').append('<option value="Done-Remove">Done (Remove)</option>')
-    }
-    //$('#todoForm').append('<div class="checkbox"><label><input type="checkbox" value="">Remove</label></div>')
 
+    //  add an option to the select menu to allow Todo Item to be remove upon submission if desired
+    if($("#id_status option[value='Done-Remove']").length == 0){
+        $('#id_status').append('<option value="Done-Remove">Done (Remove)</option>');
+    }
     //  Change the action on the form to include the id
     $('#todoForm').attr('action','/todos/edit_todo/'+apiResponseArr.id+'/')
 
