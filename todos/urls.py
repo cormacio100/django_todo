@@ -10,7 +10,8 @@ urlpatterns = [
     url(r'^create_todo/',views.create_todo,name='create_todo'),
     #url(r'^(?P<pk>[0-9]+)/edit_todo/',views.edit_todo,name='edit_todo'),
     url(r'^edit_todo/(?P<pk>[0-9]+)/',views.edit_todo,name='edit_todo'),
-    url(r'^(?P<pk>[0-9]+)/delete_todo/',views.delete_todo,name='delete_todo'),
+    #url(r'^(?P<pk>[0-9]+)/delete_todo/',views.delete_todo,name='delete_todo'),
+    url(r'^delete_todo/(?P<pk>[0-9]+)/',views.delete_todo,name='delete_todo'),
 
     #   URLS FOR REST API CLASS BASED VIEW
     url(r'^api/$', TodosView.as_view(), name="list_todos_api"),

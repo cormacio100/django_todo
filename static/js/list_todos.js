@@ -1,5 +1,5 @@
 /**
- *  Create Click events for the Edit and Delete
+ *  Create Click events for the Edit and Delete Buttons
  */
 var createClickEvents = function(){
     console.log('creating click events');
@@ -22,13 +22,42 @@ var createClickEvents = function(){
     $('.delete-link').on('click', function(){
         //  retrieve the ID for the Todo Item
         var id = parseInt($(this).attr("id").replace('delete-todo-',''));
-        console.log('id is '+id);
+        console.log('DELETE ID is '+id);
+        console.log('#cell-action-'+id);
+
+        //  Will only work if I remove the check for POST
+        document.location.href = '/todos/delete_todo/'+id+'/'; //relative to domain
+
+        // declare a HIDDEN input field for the csrf_token
+        //var input = document.createElement('input');
+        //input.type = 'hidden';
+        //input.name = 'csrfmiddlewaretoken';
+        //input.value = '{% csrf_token %}';
+
+        // attach field to the form
+        //$('#delete-form-'+id).append('<input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}">');
+
+        //$("#delete-form-"+id).serialize();
+
+        /*(
+        $('<form method="POST" action="/todos/delete_todo/'+id+'/"><input type="hidden"></form>')
+            .appendTo('#cell-action-'+id)
+            .submit(function(){
+                console.log('form submitted');
+            });
+        */
+        //  Relate the link to the form with the same ID element and submit it
+        //$('form#delete-form-'+id)[0].submit(function(){
+         //   console.log('form submitted');
+        //});
+
+        //  <form id="delete-form-'+apiResponseArr[i].id+'" method="POST" action="/todos/delete_todo/'+apiResponseArr[i].id+'/" %}"><input type="hidden"></form>
 
         /**
          *  Make call to API to delete the item
          *  See talk_to_api.js
          */
-         apiRequests('deleteClickEvent','DELETE',id,$('#choose_status').val(),$('#user_id').html(),1);
+         //apiRequests('deleteClickEvent','DELETE',id,$('#choose_status').val(),$('#user_id').html(),1);
     });
 };
 
@@ -64,6 +93,12 @@ var populateModal = function(){
     $('#id_title').val(apiResponseArr.title);
     $('#id_description').val(apiResponseArr.description);
     $('#id_status').val(apiResponseArr.status);
+    var options_length = $('#id_status').children('option').length;
+    console.log('options_length:'+options_length);
+    for(var i=0;i<length+1;i++){
+        $('#id_status').append('<option value="Done-Remove">Done (Remove)</option>')
+    }
+    //$('#todoForm').append('<div class="checkbox"><label><input type="checkbox" value="">Remove</label></div>')
 
     //  Change the action on the form to include the id
     $('#todoForm').attr('action','/todos/edit_todo/'+apiResponseArr.id+'/')
@@ -102,7 +137,8 @@ var populateTemplate = function(){
         tableCellsArr.push($('<td class="cell-title">'+apiResponseArr[i].title+'</td>'));
         tableCellsArr.push($('<td class="cell-description">'+apiResponseArr[i].description+'</td>'));
         tableCellsArr.push($('<td class="cell-status">'+apiResponseArr[i].status+'</td>'));
-        tableCellsArr.push($('<td class="cell-action"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link" ><i class="far fa-trash-alt"></i></a></td>'));
+        tableCellsArr.push($('<td class="cell-action" id="cell-action-'+apiResponseArr[i].id+'"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link"><i class="far fa-trash-alt"></i></a> <form id="delete-form-'+apiResponseArr[i].id+'" method="POST" action="/todos/delete_todo/'+apiResponseArr[i].id+'/" %}"><input type="hidden"></form></td>'));
+       // tableCellsArr.push($('<td class="cell-action" id="cell-action-'+apiResponseArr[i].id+'"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link"><i class="far fa-trash-alt"></i></a></td>'));
 
         //  append the table cells to the table Row
         for(j=0; j<tableCellsArr.length;j++){
@@ -110,8 +146,9 @@ var populateTemplate = function(){
         }
         tableBody.append(tableRow);
         table.append(tableBody);
+        createClickEvents();
     }
-    createClickEvents();
+
 };
 
 /**
@@ -130,5 +167,6 @@ $(document).ready(function(){
     //  If the user Sorts by Status
     $('#choose_status').on('change',function(){
         apiRequests('initialLoad','GET',null,$('#choose_status').val(),$('#user_id').html(),1);
-    })
+    });
+
 });

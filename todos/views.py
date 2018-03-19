@@ -73,11 +73,29 @@ def edit_todo(request,pk):
     '''
     if request.method == 'POST':
         todo = Todo.objects.get(id=pk)
-        form = TodoForm(request.user, request.POST,instance=todo)
-        if form.is_valid():
-            form.save()
-            #return render(request, 'todos/list_todos.html', {'form':form})
+
+        status = 'All'
+
+        #   If STATUS IS DONE -REMOVE
+        #   DELETE
+        #   ELSE
+        #   SAVE THE FORM
+        if request.POST['status'] is not None:
+            if request.POST['status'] != 'All':
+                status = request.POST['status']
+
+        logger.debug('STATUS IS '+status)
+
+        if('Done-Remove'==status):
+            logger.debug('NEEDS TO BE REMOVED')
+            todo.delete()
             return redirect(reverse('todos:list_todos'))
+        else:
+            form = TodoForm(request.user, request.POST,instance=todo)
+            if form.is_valid():
+                form.save()
+                #return render(request, 'todos/list_todos.html', {'form':form})
+                return redirect(reverse('todos:list_todos'))
     else:
         return redirect(reverse('todos:list_todos'))
 
