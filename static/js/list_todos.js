@@ -33,33 +33,48 @@ var createClickEvents = function(){
 };
 
 /**
- *  Populate the pop up modal with contents of the Retrieved record
+ *  Reset the Create modal
  */
-var populateModal = function(){
-    //  Populate the modal with record
-    $('#edit_title').val(apiResponseArr.title);
-    $('#edit_description').val(apiResponseArr.description);
-    $('#edit_status').val(apiResponseArr.status);
-    $('#edit_todo_id').val(apiResponseArr.id);
-    $('#submit-btn').html('Update');
-    //$("#todoForm").attr('id','editTodoForm');
-
-    /*
-    $("#editTodoForm").submit(function(e){
-        e.preventDefault();
-		console.log('clickevent');
-		/*
-		$('#todo-modal').modal('toggle');
-		$("#editTodoForm").attr('id','todoForm');
-		$('#id_title').val('');
-        $('#id_description').val('');
-        $('#id_status').val('');
-		$('#submit-btn').html('Create');
-    });*/
+var resetModal = function(){
+   $('#todoForm').attr('action','/todos/create_todo/')
+   $('#todo-form-header').html('Todo Item');
+   $('#id_title').val('');
+   $('#id_description').val('');
+   $('#id_status').val('Todo');
+   $('#submit-btn').html('Create');
 }
 
 /**
- *  Build the table for Todo List
+ *  Populate the pop up modal with contents of the individual Todo Items for editing
+ */
+var populateModal = function(){
+    /***
+     *  Reset initial Modal values if the Create button is clicked
+     *  -  Heading
+     *  -  title contents
+     *  -  description contents
+     *  -  status
+     */
+     $('#create-todo-btn').on('click',function(){
+        resetModal();
+     });
+
+    //  Populate the modal with Todo Item
+    $('#todo-form-header').html('Edit Todo Item');
+    $('#id_title').val(apiResponseArr.title);
+    $('#id_description').val(apiResponseArr.description);
+    $('#id_status').val(apiResponseArr.status);
+
+    //  Change the action on the form to include the id
+    $('#todoForm').attr('action','/todos/edit_todo/'+apiResponseArr.id+'/')
+
+    //  Change the wording on the button
+    $('#submit-btn').html('Update');
+}
+
+/**
+ *  Function is called from the talk_to_api.js file upon successful retrieval of the Todo Items
+ *  Builds the table for Todo List
  */
 var populateTemplate = function(){
     //  PARENT DIV
@@ -87,7 +102,7 @@ var populateTemplate = function(){
         tableCellsArr.push($('<td class="cell-title">'+apiResponseArr[i].title+'</td>'));
         tableCellsArr.push($('<td class="cell-description">'+apiResponseArr[i].description+'</td>'));
         tableCellsArr.push($('<td class="cell-status">'+apiResponseArr[i].status+'</td>'));
-        tableCellsArr.push($('<td class="cell-action"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#edit-todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link" ><i class="far fa-trash-alt"></i></a></td>'));
+        tableCellsArr.push($('<td class="cell-action"><a id="edit-todo-'+apiResponseArr[i].id+'" class="edit-link" data-toggle="modal" data-target="#todo-modal""><i class="far fa-edit"></i></a>&nbsp;<a id="delete-todo-'+apiResponseArr[i].id+'" class="delete-link" ><i class="far fa-trash-alt"></i></a></td>'));
 
         //  append the table cells to the table Row
         for(j=0; j<tableCellsArr.length;j++){
@@ -100,7 +115,8 @@ var populateTemplate = function(){
 };
 
 /**
- *  When the page loads
+ *  When the page loads this page will build the contents of the Todo List table
+ *  by calling on the API to retrieve Todo Items
  */
 $(document).ready(function(){
     $('#REST-data').html('<p id="spinner"><i class="fa fa-spinner fa-spin fa-3x orange-spin"></i></p>');
@@ -115,5 +131,4 @@ $(document).ready(function(){
     $('#choose_status').on('change',function(){
         apiRequests('initialLoad','GET',null,$('#choose_status').val(),$('#user_id').html(),1);
     })
-
 });

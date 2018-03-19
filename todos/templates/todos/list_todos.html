@@ -8,7 +8,7 @@
     <div class="container contents">
         <div class="row">
             <div class="col-sm-3">
-                <button type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item<span id="user_id" hidden>{{ user_id }}</span></button>
+                <button id="create-todo-btn" type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item<span id="user_id" hidden>{{ user_id }}</span></button>
             </div>
             <div class="col-sm-6 centered">
                 <h1>Todo's for {{ username|title}}</h1>
@@ -27,45 +27,6 @@
         </div>
         <div class="row">
 
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table">
-	                <thead>
-		                <tr>
-			                <td><strong>Title</strong></td>
-			                <td><strong>Description</strong></td>
-			                <td><strong>Status</strong></td>
-                            <td><strong>Actions</strong></td>
-		                </tr>
-	                </thead>
-	                <tbody>
-                        {% for todo in todo_list %}
-		                    <tr>
-			                    <td class="cell-title" >{{todo.title}}</td>
-			                    <td class="cell-description">{{todo.description}}</td>
-			                    <td class="cell-status">{{todo.status}}</td>
-                                <td class="cell-action">
-                                    <a id="todo-{{todo.id}}" class="edit-link" data-toggle="modal" data-target="#todo-modal" onClick="document.getElementById('');">
-                                        <i class="far fa-edit"></i>
-                                    </a>
-                                    <a onClick="document.getElementById('delete{{ todo.id }}').submit();">
-                                        <i class="far fa-trash-alt"></i>
-                                    </a>
-                                    <form id="edit{{ todo.id }}" method="POST" action="{% url 'todos:edit_todo' todo.id %}">
-                                        {% csrf_token %}
-                                        <input type="hidden">
-                                    </form>
-                                    <form id="delete{{ todo.id }}" method="POST" action="{% url 'todos:delete_todo' todo.id %}">
-                                        {% csrf_token %}
-                                        <input type="hidden">
-                                    </form>
-                                </td>
-		                    </tr>
-                        {% endfor %}
-	                </tbody>
-                </table>
-            </div>
         </div>
         <div class="row">
             <div id="REST-data" class="col-sm-12" ></div>

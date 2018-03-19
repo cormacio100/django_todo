@@ -74,7 +74,10 @@ def edit_todo(request,pk):
     if request.method == 'POST':
         todo = Todo.objects.get(id=pk)
         form = TodoForm(request.user, request.POST,instance=todo)
-        return render(request, 'todos/list_todos.html', {'form':form})
+        if form.is_valid():
+            form.save()
+            #return render(request, 'todos/list_todos.html', {'form':form})
+            return redirect(reverse('todos:list_todos'))
     else:
         return redirect(reverse('todos:list_todos'))
 

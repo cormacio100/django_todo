@@ -8,7 +8,8 @@ app_name = 'todos'
 urlpatterns = [
     url(r'^list_todos/',views.list_todos,name='list_todos'),
     url(r'^create_todo/',views.create_todo,name='create_todo'),
-    url(r'^(?P<pk>[0-9]+)/edit_todo/',views.edit_todo,name='edit_todo'),
+    #url(r'^(?P<pk>[0-9]+)/edit_todo/',views.edit_todo,name='edit_todo'),
+    url(r'^edit_todo/(?P<pk>[0-9]+)/',views.edit_todo,name='edit_todo'),
     url(r'^(?P<pk>[0-9]+)/delete_todo/',views.delete_todo,name='delete_todo'),
 
     #   URLS FOR REST API CLASS BASED VIEW
