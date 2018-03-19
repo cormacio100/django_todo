@@ -77,7 +77,7 @@ var resetModal = function(){
 }
 
 /**
- *  Populate the pop up modal with contents of the individual Todo Items for editing
+ *  Populate the Edit modal with contents of the individual Todo Items for editing
  */
 var populateModal = function(){
     /***
@@ -107,6 +107,37 @@ var populateModal = function(){
 
     //  Change the wording on the button
     $('#submit-btn').html('Update');
+}
+
+var pagerClick = function(pageClicked){
+
+}
+
+/**
+ *  Function GENERATES the Pager Links
+ */
+var createPagerLinks = function(page_count,count){
+    //  Clear the record count and page_links DIV before appending to it
+    $('#record_count').html('');
+    $('#page_links').html('');
+    $('#record_count').html('('+count+' items)');
+
+    var link = '';
+    for(j=0;j<page_count;j++){
+        link = $('<a href="#" class="listing-pager">'+(j+1)+'</a>');
+        $('#page_links').append(link);
+
+        /*  Add divider between links */
+        if((j+1)<page_count){
+            $('#page_links').append(' | ');
+        }
+    }
+    //  Create click action for the pager links
+    $('.listing-pager').click(function(){
+        var page = $(this).text();
+        //  Call the API to retrieve items for selected page
+        apiRequests('pagerLoad','GET',null,$('#choose_status').val(),$('#user_id').html(),page);
+    });
 }
 
 /**
@@ -146,42 +177,24 @@ var populateTemplate = function(){
         for(j=0; j<tableCellsArr.length;j++){
             tableRow.append(tableCellsArr[j]);
         }
+        //  append the table row to the table body
         tableBody.append(tableRow);
+        //  append the table body to the table
         table.append(tableBody);
+        //  Create a click event for the action button
         createClickEvents();
 
+        //  GENERATE THE PAGE LINKS
         //  Since each apiResponseArr object contains the same page_count and record_count
-        //  we only need to retrieve the value from the first one
+        //  we only need to retrieve the value from the first record
         if(0==i){
             page_count = apiResponseArr[i].page_count
             count = apiResponseArr[i].count
 
-            //  Clear the record count and page_links DIV before appending to it
-            var link = '';
-            $('#record_count').html('');
-            $('#record_count').html('('+count+' records)');
-            $('#page_links').html('');
-
-            for(j=0;j<page_count;j++){
-                link = $('<a href="#" class="listing-pager">'+(j+1)+'</a>');
-                $('#page_links').append(link);
-
-                /*  Add divider between links */
-                if((j+1)<page_count){
-                    $('#page_links').append('|');
-                }
-            }
-            //  Create click action for the pager links
-            $('.listing-pager').click(function(){
-                var page = $(this).text();
-                pagerClick(page)
-            });
-
+            //  generate pager links
+            createPagerLinks(page_count,count);
         }
-
-
     }
-
 };
 
 /**

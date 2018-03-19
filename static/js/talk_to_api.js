@@ -18,7 +18,6 @@ var apiRequests = function(callingFunction,action,id,status,user_id,page){
         console.log('url is '+url);
 
         if('editClickEvent'== callingFunction){
-
             data.id = id;
             console.log('EDIT CLICK EVENT');
             url = url+id+'/'

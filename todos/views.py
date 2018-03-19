@@ -162,6 +162,7 @@ class TodosView(APIView):
             else:
                 todo_items = Todo.objects.all()
 
+            #   User the Paginator to retrieve pages of records
             if page != 'All':
                 paginator = Paginator(todo_items,recordsPerPage)
                 num_pages = paginator.num_pages
