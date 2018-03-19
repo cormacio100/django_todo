@@ -76,4 +76,4 @@ To Delete a Todo, open the Edit modal and set status to "Done (Remove)"
 ![todo_list](https://user-images.githubusercontent.com/8201348/37587243-b084ebdc-2b56-11e8-9a98-5672be791936.PNG)
 
 4.  Logout
-![logout](https://user-images.githubusercontent.com/8201348/37587413-2ef06fa0-2b57-11e8-8d00-9df9c00e78f1.PNG)
+![logout](https://user-images.githubusercontent.com/8201348/37587521-7b1c72fc-2b57-11e8-8d80-0247d7e05456.PNG)
