@@ -153,8 +153,7 @@ class TodosView(APIView):
             logger.debug('user_id '+user_id)
             logger.debug('page '+page)
 
-            #########   DO FILTERS FOR EACH PARAM SCENARIO   ############
-
+            #########   FILTERS FOR EACH PARAM SCENARIO   ############
             if user_id != 0 and status == 'All':
                 todo_items = Todo.objects.filter(user_id=user_id)
             elif user_id != 0 and status != 'All':
@@ -162,7 +161,7 @@ class TodosView(APIView):
             else:
                 todo_items = Todo.objects.all()
 
-            #   User the Paginator to retrieve pages of records
+            #   User the Paginator to retrieve pages of records before serializing the data
             if page != 'All':
                 paginator = Paginator(todo_items,recordsPerPage)
                 num_pages = paginator.num_pages
@@ -176,14 +175,12 @@ class TodosView(APIView):
             serialized_data = serializer.data
             return Response(serialized_data)
         else:
-            logger.debug('PK IS NOT NONE')
             todo= Todo.objects.get(id=pk)
             serializer = TodoSerializer(todo)
             serialized_data = serializer.data
             return Response(serialized_data)
 
     def post(self,request):
-        logger.debug('API POST REQUEST MADE')
 
         """
         Handles POST requests
@@ -211,10 +208,6 @@ class TodosView(APIView):
                             status=status.HTTP_201_CREATED)
 
     def put(self,request,pk):
-
-        logger.debug('API PUT REQUEST MADE')
-
-
         """
         Handle PUT requests
         -   Retrieve a Todo instance based on primary key from URL
@@ -237,7 +230,6 @@ class TodosView(APIView):
             return Response(serializer.data)
 
     def delete(self,request,pk):
-        logger.debug('API DELETE REQUEST MADE')
         """
         Handle DELETE requests to the API
 
