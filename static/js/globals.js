@@ -1,8 +1,13 @@
-//  Global array for transferring JSON into from API
-//  It will contain an ARRAY OF 0BJECTS
+/*
+ *  Global array for transferring JSON into from API
+ *  It will contain an ARRAY OF 0BJECTS
+ */
 var apiResponseArr = [];
 
-//  Retrieve the correct URL for the API
+/**
+ *  Retrieve the correct URL for the API
+ *  Depends on host
+ */
 var retrieveAPIUrl = function(){
     var host = window.location.hostname;
 
