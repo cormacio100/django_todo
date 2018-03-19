@@ -14,4 +14,5 @@ urlpatterns = [
     #   URLS FOR REST API CLASS BASED VIEW
     url(r'^api/$', TodosView.as_view(), name="list_todos_api"),
     url(r'^api/(?P<pk>[0-9]+)/$', TodosView.as_view(), name="update_todos_api"),
+    #url(r'^api/delete/(?P<pk>[0-9]+)/$', TodosView.as_view(), name="delete_todo_api")
 ]

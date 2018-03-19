@@ -8,6 +8,12 @@ var createClickEvents = function(){
         //  retrieve the ID for the todo ITEM
         var id = parseInt($(this).attr("id").replace('delete-todo-',''));
         console.log('new id is '+id);
+
+        /**
+         *  Make call to API to delete the item
+         *  See talk_to_api.js
+         */
+         apiRequests('deleteClickEvent','DELETE',id,$('#choose_status').val(),$('#user_id').html(),1);
     });
 };
 
@@ -77,11 +83,11 @@ $(document).ready(function(){
     //  Display the 1st page of 8 records
     //  for specified user_id
     //  talk_to_api.js
-    requestForJsonData('initial','All',$('#user_id').html(),1);
+    apiRequests('initialLoad','GET',null,'All',$('#user_id').html(),1);
 
     //  If the user Sorts by Status
     $('#choose_status').on('change',function(){
-        requestForJsonData('initialLoad',$('#choose_status').val(),$('#user_id').html(),1);
+        apiRequests('initialLoad','GET',null,$('#choose_status').val(),$('#user_id').html(),1);
     })
 
 });

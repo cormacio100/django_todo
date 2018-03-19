@@ -109,6 +109,8 @@ class TodosView(APIView):
         page = 'All'
         recordsPerPage = 8
 
+        logger.debug('API GET REQUEST MADE')
+
         if pk is None:
             #   RETRIEVE THE PARAMETERS PASSED IN
             #   check the status from the request
@@ -151,6 +153,8 @@ class TodosView(APIView):
             return Response(serialized_data)
 
     def post(self,request):
+        logger.debug('API POST REQUEST MADE')
+
         """
         Handles POST requests
         This view takes the 'data' property from the 'request' object,
@@ -177,6 +181,10 @@ class TodosView(APIView):
                             status=status.HTTP_201_CREATED)
 
     def put(self,request,pk):
+
+        logger.debug('API PUT REQUEST MADE')
+
+
         """
         Handle PUT requests
         -   Retrieve a Todo instance based on primary key from URL
@@ -199,6 +207,9 @@ class TodosView(APIView):
             return Response(serializer.data)
 
     def delete(self,request,pk):
+        logger.debug('API DELETE REQUEST MADE')
+
+
         """
         Handle DELETE requests to the API
 
