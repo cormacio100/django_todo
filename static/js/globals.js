@@ -9,9 +9,9 @@ var retrieveAPIUrl = function(){
     //  Check if running on localhost
     //  If yes, port 8000 needs to be included in the URL
     if('127.0.0.1'==host){
-        var url = 'http://'+host+':8000/todos/api/?';
+        var url = 'http://'+host+':8000/todos/api/';
     }else{
-        var url = 'https://'+host+'/todos/api/?';
+        var url = 'https://'+host+'/todos/api/';
     }
     return url;
 }

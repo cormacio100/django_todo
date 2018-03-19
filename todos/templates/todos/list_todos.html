@@ -84,8 +84,46 @@
                                 {{ form | as_bootstrap }}
                             {% endif %}
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="button" id="close-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="submit-btn" class="btn btn-primary">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="edit-todo-modal" tabindex="-1" role="dialog" aria-labelledby="todo-form-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="edit-todo-form-header">Edit Todo Item</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form name="editTodoForm" id="editTodoForm" role="form" class="account-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" id="edit_title" name="edit_title" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" id="edit_description" name="edit_description" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" id="edit_status" name="edit_status" >
+                                    <option value="Todo" selected>Todo</option>
+                                    <option value="Doing">Doing</option>
+                                    <option value="Done">Done</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input id="edit_todo_id" type="hidden" value="">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="close-edit-btn" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" id="submit-edit-btn" class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>

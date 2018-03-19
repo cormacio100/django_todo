@@ -147,6 +147,7 @@ class TodosView(APIView):
             serialized_data = serializer.data
             return Response(serialized_data)
         else:
+            logger.debug('PK IS NOT NONE')
             todo= Todo.objects.get(id=pk)
             serializer = TodoSerializer(todo)
             serialized_data = serializer.data
@@ -208,8 +209,6 @@ class TodosView(APIView):
 
     def delete(self,request,pk):
         logger.debug('API DELETE REQUEST MADE')
-
-
         """
         Handle DELETE requests to the API
 
