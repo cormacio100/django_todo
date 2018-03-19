@@ -7,12 +7,17 @@
     {% endif %}
     <div class="container contents">
         <div class="row">
-            <div class="col-sm-3">
-                <button id="create-todo-btn" type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item<span id="user_id" hidden>{{ user_id }}</span></button>
-            </div>
-            <div class="col-sm-6 centered">
+            <div class="col-sm-3">&nbsp;</div>
+            <div class="col-sm-6 centered title">
                 <h1>Todo's for {{ username|title}}</h1>
             </div>
+            <div class="col-sm-3">
+                &nbsp;
+            </div>
+        </div>
+        <div id="pagination" class="row">
+            <div class="col-sm-3"><button id="create-todo-btn" type="button" class="btn btn-primary btn-large btn-block" data-toggle="modal" data-target="#todo-modal">Create New Todo Item<span id="user_id" hidden>{{ user_id }}</span></button></div>
+            <div class="col-sm-6 centered"><p><span id="record_count"></span> Page: <span id="page_links"></span></p></div>
             <div class="col-sm-3">
                 <p>
                     Sort by Status:&nbsp;
@@ -22,11 +27,7 @@
                         <option value="Doing">Doing</option>
                         <option value="Done">Done</option>
                     </select>
-                </p>
-            </div>
-        </div>
-        <div class="row">
-
+                </p></div>
         </div>
         <div class="row">
             <div id="REST-data" class="col-sm-12" ></div>

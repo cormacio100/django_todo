@@ -7,7 +7,6 @@ var apiRequests = function(callingFunction,action,id,status,user_id,page){
     console.log('action is '+action);
     if('GET'==action){
         var data = {
-            id:id,
             status:status,
             user_id:user_id,
             page:page
@@ -19,7 +18,9 @@ var apiRequests = function(callingFunction,action,id,status,user_id,page){
         console.log('url is '+url);
 
         if('editClickEvent'== callingFunction){
-            console.log('EDIT EVENT');
+
+            data.id = id;
+            console.log('EDIT CLICK EVENT');
             url = url+id+'/'
             console.log('url is '+url);
 
@@ -37,6 +38,8 @@ var apiRequests = function(callingFunction,action,id,status,user_id,page){
                 console.log("Request Failed:"+err);
             });
         }else{
+            console.log('LISTING EVENT');
+            console.log('url is '+url);
             $.getJSON(url,data,function(){
                 console.log('Requesting...')
             }).done(function(json){

@@ -149,6 +149,37 @@ var populateTemplate = function(){
         tableBody.append(tableRow);
         table.append(tableBody);
         createClickEvents();
+
+        //  Since each apiResponseArr object contains the same page_count and record_count
+        //  we only need to retrieve the value from the first one
+        if(0==i){
+            page_count = apiResponseArr[i].page_count
+            count = apiResponseArr[i].count
+
+            //  Clear the record count and page_links DIV before appending to it
+            var link = '';
+            $('#record_count').html('');
+            $('#record_count').html('('+count+' records)');
+            $('#page_links').html('');
+
+            for(j=0;j<page_count;j++){
+                link = $('<a href="#" class="listing-pager">'+(j+1)+'</a>');
+                $('#page_links').append(link);
+
+                /*  Add divider between links */
+                if((j+1)<page_count){
+                    $('#page_links').append('|');
+                }
+            }
+            //  Create click action for the pager links
+            $('.listing-pager').click(function(){
+                var page = $(this).text();
+                pagerClick(page)
+            });
+
+        }
+
+
     }
 
 };
@@ -158,7 +189,7 @@ var populateTemplate = function(){
  *  by calling on the API to retrieve Todo Items
  */
 $(document).ready(function(){
-    $('#REST-data').html('<p id="spinner"><i class="fa fa-spinner fa-spin fa-3x orange-spin"></i></p>');
+    $('#REST-data').html('<div class="row centered margin-top-3"><div class="col-sm-12"><p id="spinner"><i class="fa fa-spinner fa-spin fa-4x orange-spin"></i></p></div></div>');
 
     //  initially load ALL todo items.
     //  Display the 1st page of 8 records

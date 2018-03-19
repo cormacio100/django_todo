@@ -19,7 +19,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-#@login_required()
+@login_required()
 def list_todos(request):
 
     #   Try to retrieve the list of Todos for the current user
@@ -39,7 +39,7 @@ def list_todos(request):
     return render(request,'todos/list_todos.html',{'form':form,'todo_list':todo_list,'username':request.user.username,'user_id':request.user.id})
 
 
-#@login_required()
+@login_required()
 def create_todo(request):
     """
     -   Need to create a FORM in forms.py
@@ -64,7 +64,7 @@ def create_todo(request):
     return redirect(reverse('todos:list_todos'))
 
 
-#@login_required()
+@login_required()
 def edit_todo(request,pk):
     '''
     -   Retrieve the Todo item if POST is the method to get to this function
@@ -100,7 +100,7 @@ def edit_todo(request,pk):
         return redirect(reverse('todos:list_todos'))
 
 
-#@login_required()
+@login_required()
 def delete_todo(request,pk):
     #   ensure that the request came from the dislike form in the template
     if request.method == 'POST':
@@ -128,7 +128,7 @@ class TodosView(APIView):
         user_id = 0
         status = 'All'
         page = 'All'
-        recordsPerPage = 8
+        recordsPerPage = 5
 
         logger.debug('API GET REQUEST MADE')
 
@@ -162,8 +162,15 @@ class TodosView(APIView):
             else:
                 todo_items = Todo.objects.all()
 
+            if page != 'All':
+                paginator = Paginator(todo_items,recordsPerPage)
+                num_pages = paginator.num_pages
+                count = paginator.count
+                todo_items = paginator.page(int(page))
+                serializer = TodoSerializer(todo_items, many=True,num_pages=num_pages,count=count)
+            else:
+                serializer = TodoSerializer(todo_items,many=True)
 
-            serializer = TodoSerializer(todo_items,many=True)
             #   use a variable to store the serialized data
             serialized_data = serializer.data
             return Response(serialized_data)

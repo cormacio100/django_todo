@@ -1,20 +1,32 @@
 body{
     color:#9d9d9d;
 }
-
 .contents{
     margin-top:2em;
 }
-
+.margin-top-3{
+    margin-top:3em;
+}
+table.table{
+    margin-top:1em;
+}
+#spinner{
+    margin-left:auto;
+    margin-right:auto;
+}
 .centered{
     text-align:center;
 }
-
+.title{
+    margin-bottom:2em;
+}
 select#choose_status {
     background-color: #9d9d9d;
     color: white;
 }
-
+#record_count{
+    font-weight:bold;
+}
 .cell-title{
     min-width:25%;
 }
