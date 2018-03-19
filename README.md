@@ -64,3 +64,16 @@ To Delete a Todo, open the Edit modal and set status to "Done (Remove)"
 1.  Any changess to static files shoulw be followed by the command:
    1. "python manage.py collectstatic"
    2. This will then auto update the files in staticfiles folder
+   
+### Screenshots
+1.  Login
+![login](https://user-images.githubusercontent.com/8201348/37587085-2ab07648-2b56-11e8-8ce4-ffb1bcd5de08.PNG)
+
+2.  Registration
+![register](https://user-images.githubusercontent.com/8201348/37587178-788fee0c-2b56-11e8-9a4c-5a733efea71f.PNG)
+
+3.  Todo List
+![todo_list](https://user-images.githubusercontent.com/8201348/37587243-b084ebdc-2b56-11e8-9a98-5672be791936.PNG)
+
+4.  Logout
+![todo_list](https://user-images.githubusercontent.com/8201348/37587306-dc5e0022-2b56-11e8-8bc9-b7af0d8f0d34.PNG)
