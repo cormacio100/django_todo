@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 def home(request):
     return redirect(reverse('accounts:login'))
 
+
 #   Registration View
 def register(request):
     if request.method =='POST':

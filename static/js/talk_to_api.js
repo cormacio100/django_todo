@@ -26,11 +26,12 @@ var apiRequests = function(callingFunction,action,id,status,user_id,page){
             });
         }else{
             $.getJSON(url,data,function(){
-                console.log('Requesting...')
+                console.log('url is '+url);
+                console.log('Requesting...');
+                console.log('calling function is '+callingFunction);
             }).done(function(json){
                 apiResponseArr = json;
                 populateTemplate();
-
             }).fail(function(jqxhr,textStatus,error){
                 var err = textStatus+", "+error;
             });

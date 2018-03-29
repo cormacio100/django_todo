@@ -148,7 +148,7 @@ $(document).ready(function(){
     $('#REST-data').html('<div class="row centered margin-top-3"><div class="col-sm-12"><p id="spinner"><i class="fa fa-spinner fa-spin fa-4x orange-spin"></i></p></div></div>');
 
     //  initially load ALL todo items.
-    //  Display the 1st page of 8 records
+    //  Display the 1st page of 5 records
     //  for specified user_id
     //  talk_to_api.js
     apiRequests('initialLoad','GET',null,'All',$('#user_id').html(),1);
